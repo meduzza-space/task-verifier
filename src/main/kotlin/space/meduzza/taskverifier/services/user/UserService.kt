@@ -13,17 +13,22 @@ import javax.persistence.Id
 class UserService {
 
     @Autowired
+    private lateinit var passwordEncoder: PasswordEncoder
+    @Autowired
     lateinit var userEntityRepository: UserEntityRepository
 
-    fun getUser(userId: Long){
-        userEntityRepository.findById(userId).orElseThrow()
+    fun getUser(userId: Long) {
+        userEntityRepository.findById(userId).orElseThrow{NoSuchElementException()}
     }
 
-    fun createUser(fname: String, lname: String): UserEntity{
+    fun createUser(fname: String, lname: String, username: String, password: String): UserEntity {
         return userEntityRepository.save(
                 UserEntity(
                         fname = fname,
-                        lname = lname
+                        lname = lname,
+                        username = username,
+                        password = passwordEncoder.encode(password),
+                        authorities = "ROLE_USER"
                 )
         )
     }
