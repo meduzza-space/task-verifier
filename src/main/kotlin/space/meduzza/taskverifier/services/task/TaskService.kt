@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
+import java.util.NoSuchElementException
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
@@ -18,7 +19,7 @@ class TaskService {
     lateinit var userTryCodeRepository: UserTryCodeRepository
 
     fun getTask(taskId: Long): TaskEntity{
-        return taskRepository.findById(taskId).orElseThrow()
+        return taskRepository.findById(taskId).orElseThrow{ NoSuchElementException() }
     }
 
     fun getTasks(page: Int, size: Int): List<TaskEntity>{
@@ -44,7 +45,7 @@ class TaskService {
                         output = userOutput
                 )
         )
-        return taskRepository.findById(taskId).orElseThrow().output == userOutput
+        return taskRepository.findById(taskId).orElseThrow{NoSuchElementException()}.output == userOutput
     }
 }
 
