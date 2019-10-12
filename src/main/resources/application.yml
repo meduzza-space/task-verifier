@@ -3,3 +3,9 @@ spring:
     url: "jdbc:postgresql://meduzza.space:5400/tasks"
     password: tasks
     username: tasks
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
