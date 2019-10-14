@@ -18,26 +18,27 @@ class TaskService {
     @Autowired
     lateinit var userTryCodeRepository: UserTryCodeRepository
 
-    fun getTask(taskId: Long): TaskEntity{
-        return taskRepository.findById(taskId).orElseThrow{ NoSuchElementException() }
+    fun getTask(taskId: Long): TaskEntity {
+        return taskRepository.findById(taskId).orElseThrow { NoSuchElementException() }
     }
 
-    fun getTasks(page: Int, size: Int): List<TaskEntity>{
+    fun getTasks(page: Int, size: Int): List<TaskEntity> {
         return taskRepository.findAll(PageRequest.of(page, size)).content
     }
 
-    fun createTask(title: String, desc: String, weight: Int, output: String): TaskEntity{
+    fun createTask(title: String, desc: String, weight: Int, output: String, input: String): TaskEntity {
         return taskRepository.save(
                 TaskEntity(
                         title = title,
-                        desc = desc,
+                        description = desc,
                         weight = weight,
-                        output = output
+                        output = output,
+                        input = input
                 )
         )
     }
 
-    fun checkTask(taskId: Long, userCode: String, userOutput: String): Boolean{
+    fun checkTask(taskId: Long, userCode: String, userOutput: String): Boolean {
         userTryCodeRepository.save(
                 UserTryCodeEntity(
                         taskId = taskId,
@@ -45,7 +46,7 @@ class TaskService {
                         output = userOutput
                 )
         )
-        return taskRepository.findById(taskId).orElseThrow{NoSuchElementException()}.output == userOutput
+        return taskRepository.findById(taskId).orElseThrow { NoSuchElementException() }.output == userOutput
     }
 }
 
@@ -55,8 +56,9 @@ data class TaskEntity(
         @GeneratedValue
         val id: Long? = null,
         val title: String,
-        val desc: String,
+        val description: String,
         val weight: Int,
+        val input: String,
         val output: String
 )
 
@@ -71,7 +73,7 @@ data class UserTryCodeEntity(
 )
 
 @Repository
-interface TaskRepository: JpaRepository<TaskEntity, Long>
+interface TaskRepository : JpaRepository<TaskEntity, Long>
 
 @Repository
-interface UserTryCodeRepository: JpaRepository<UserTryCodeEntity, Long>
+interface UserTryCodeRepository : JpaRepository<UserTryCodeEntity, Long>
