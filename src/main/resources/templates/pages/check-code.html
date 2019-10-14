@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" xmlns:th="http://www.thymeleaf.org" data-textdirection="ltr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+
+    <!-- Start content -->
+    <th:block layout:fragment="content">
+        <h1>Download form for your code</h1>
+        <form method="POST" enctype="multipart/form-data" action="/check-code">
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Example file input</label>
+                <input name="code" type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </th:block>
+    <!-- End content -->
+
+    <!-- BEGIN Page Level CSS-->
+    <th:block layout:fragment="style-page"></th:block>
+    <!-- End Page Level CSS -->
+
+    <!-- BEGIN PAGE VENDOR JS-->
+    <th:block layout:fragment="scripts-page-vendor"></th:block>
+    <!-- END PAGE VENDOR JS -->
+
+    <!-- BEGIN PAGE LEVEL JS-->
+    <th:block layout:fragment="scripts-page"></th:block>
+    <!-- END BEGIN PAGE LEVEL JS-->
+</html>
