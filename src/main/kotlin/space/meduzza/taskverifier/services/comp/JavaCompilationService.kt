@@ -1,10 +1,10 @@
-package space.meduzza.taskverifier
+package space.meduzza.taskverifier.services.comp
 
 
 import org.springframework.stereotype.Service
+import space.meduzza.taskverifier.CompilationService
 import java.io.File
 import java.lang.RuntimeException
-import javax.tools.ToolProvider
 
 @Service
 class JavaCompilationService : CompilationService {
@@ -15,14 +15,12 @@ class JavaCompilationService : CompilationService {
                 .directory(file.parentFile)
                 .start()
         p.waitFor()
-        return p.inputStream.bufferedReader().readText()
+        return p.inputStream.bufferedReader().readText().trim()
     }
 
     override fun compile(file: File):File{
         val p = ProcessBuilder("javac", file.absolutePath).start()
-        val code = p.waitFor()
-        println(code)
-        when(code){
+        when(p.waitFor()){
             1->{
                 val errText = p.errorStream.bufferedReader().readText()
                 println(errText)
