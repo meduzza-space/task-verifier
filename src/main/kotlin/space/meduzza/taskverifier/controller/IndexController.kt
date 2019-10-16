@@ -34,7 +34,7 @@ class IndexController {
     @RequestMapping("/", method = [RequestMethod.GET])
     @PreAuthorize("hasRole('USER')")
     fun index(model: Model): String {
-        return "index"
+        return "pages/index"
     }
 
     @PostMapping("/check-code")
@@ -61,14 +61,13 @@ class IndexController {
             if (srcFile.exists()) srcFile.delete()
         }
 
-        return "index"
+        return "pages/task-check-status"
     }
 
     @RequestMapping("/tasks")
     @PreAuthorize("hasRole('USER')")
-    @ResponseBody
-    fun getAllTasks(principal: Principal): List<TaskEntity> {
+    fun getAllTasks(principal: Principal): String {
         val user = userService.getUserByUsername(principal.name)
-        return userService.getUserTasks(user)
+        return "pages/tasks"
     }
 }
