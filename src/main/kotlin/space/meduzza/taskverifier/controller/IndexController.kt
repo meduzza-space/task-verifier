@@ -8,11 +8,10 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 import space.meduzza.taskverifier.CompilationServiceFacade
 import space.meduzza.taskverifier.services.comp.JavaCompilationService
-import space.meduzza.taskverifier.services.task.TaskEntity
 import space.meduzza.taskverifier.services.task.TaskService
 import space.meduzza.taskverifier.services.user.UserService
 import java.io.File
@@ -34,12 +33,12 @@ class IndexController {
     @RequestMapping("/", method = [RequestMethod.GET])
     @PreAuthorize("hasRole('USER')")
     fun index(model: Model): String {
-        return "pages/index"
+        return "pages/main"
     }
 
-    @PostMapping("/check-code")
+    @PostMapping("/check-task")
     @PreAuthorize("hasRole('USER')")
-    fun checkCode(code: MultipartFile, model: Model, principal: Principal): String {
+    fun checkTask(code: MultipartFile, model: Model, principal: Principal): String {
 
         val srcFile = File(code.originalFilename!!)
         try {
@@ -66,8 +65,22 @@ class IndexController {
 
     @RequestMapping("/tasks")
     @PreAuthorize("hasRole('USER')")
-    fun getAllTasks(principal: Principal): String {
+    fun tasks(principal: Principal, model: Model): String {
         val user = userService.getUserByUsername(principal.name)
+        model.addAttribute("tasks", userService.getUserTasks(user))
         return "pages/tasks"
+    }
+
+    @RequestMapping("/task")
+    @PreAuthorize("hasRole('USER')")
+    fun task(@RequestParam(name = "task-id") taskId: Long, principal: Principal, model: Model): String {
+        model.addAttribute("task", taskService.getTask(taskId))
+        return "pages/task-detail"
+    }
+
+    @RequestMapping("/settings")
+    @PreAuthorize("hasRole('USER')")
+    fun settings(principal: Principal, model: Model): String {
+        return "pages/settings"
     }
 }

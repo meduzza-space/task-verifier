@@ -1,8 +1,30 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" xmlns:th="http://www.thymeleaf.org" data-textdirection="ltr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html class="loading" lang="ru" xmlns:th="http://www.thymeleaf.org" data-textdirection="ltr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+    <head>
+        <title>Задания</title>
+    </head>
 
     <!-- Start content -->
-    <th:block layout:fragment="content"></th:block>
+    <th:block layout:fragment="content">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Балы</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <th th:text="${task.id}" scope="row"></th>
+                <td><a th:href="@{/task(task-id=${task.id})}" th:text="${task.title}"></a></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.weight}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
     <!-- End content -->
 
     <!-- BEGIN PAGE VENDOR JS-->

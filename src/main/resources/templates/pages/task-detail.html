@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" xmlns:th="http://www.thymeleaf.org" data-textdirection="ltr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{base}">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
 
-    <!-- Start content -->
-    <th:block layout:fragment="content"></th:block>
-    <!-- End content -->
+<head>
+    <!--/*@thymesVar id="task" type="space.meduzza.taskverifier.services.task.TaskEntity"*/-->
+    <title th:text="${task.title}"></title>
+</head>
 
-    <!-- BEGIN PAGE VENDOR JS-->
-    <th:block layout:fragment="scripts-page-vendor"></th:block>
-    <!-- END PAGE VENDOR JS -->
+<!-- Start content -->
+<th:block layout:fragment="content">
+    <section class="jumbotron">
+        <div class="container">
+            <h1 class="jumbotron-heading" th:text="${task.title}"></h1>
+            <p>Описание: <span th:text="${task.description}"></span></p>
+            <p>Количество балов: <span th:text="${task.weight}"></span></p>
+            <p>Входные параметры: <span th:text="${task.input}"></span></p>
+            <p>Ожидаемый вывод: <span th:text="${task.output}"></span></p>
+            <form method="POST" enctype="multipart/form-data" action="/check-task">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Файл с кодом программы</label>
+                    <input name="code" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <button type="submit" class="btn btn-primary">Проверить</button>
+            </form>
+<!--            <a href="#" class="btn btn-primary my-2">Main call to action</a>-->
 
-    <!-- BEGIN PAGE LEVEL JS-->
-    <th:block layout:fragment="scripts-page"></th:block>
-    <!-- END BEGIN PAGE LEVEL JS-->
+        </div>
+    </section>
+</th:block>
+<!-- End content -->
+
+<!-- BEGIN PAGE VENDOR JS-->
+<th:block layout:fragment="scripts-page-vendor"></th:block>
+<!-- END PAGE VENDOR JS -->
+
+<!-- BEGIN PAGE LEVEL JS-->
+<th:block layout:fragment="scripts-page"></th:block>
+<!-- END BEGIN PAGE LEVEL JS-->
 </html>

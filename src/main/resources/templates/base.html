@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head layout:fragment="head">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -15,14 +15,14 @@
     <!-- END Custom CSS-->
 </head>
 <body>
-<th:block layout:replace="fragments/menu :: nav"></th:block>
-<th:block layout:replace="fragments/menu :: leftnav"></th:block>
+<th:block layout:replace="~{fragments/menu :: nav}"/>
+<th:block layout:replace="~{fragments/menu :: leftnav}"/>
 
 <!--CONTENT-->
 <div>
-    <th:block layout:fragment="content"></th:block>
+    <th:block layout:fragment="content"/>
 </div>
-<th:block layout:replace="fragments/footer :: footer"></th:block>
+<th:block layout:replace="~{fragments/footer :: footer}"/>
 <!--FOOTER-->
 
 <!-- BEGIN VENDOR JS-->
@@ -37,10 +37,10 @@
         crossorigin="anonymous"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
-<th:block layout:fragment="scripts-page-vendor"></th:block>
+<th:block layout:fragment="~{scripts-page-vendor}"/>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN PAGE LEVEL JS-->
-<th:block layout:fragment="scripts-page"></th:block>
+<th:block layout:fragment="~{scripts-page}"/>
 <!-- END PAGE LEVEL JS-->
 <!-- BEGIN Custom JS-->
 <script th:src="@{/script/script.js}"></script>
