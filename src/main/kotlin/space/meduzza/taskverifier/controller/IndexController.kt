@@ -8,16 +8,21 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.multipart.MultipartFile
 import space.meduzza.taskverifier.CompilationServiceFacade
 import space.meduzza.taskverifier.services.comp.JavaCompilationService
+import space.meduzza.taskverifier.services.task.TaskEntity
 import space.meduzza.taskverifier.services.task.TaskService
+import space.meduzza.taskverifier.services.user.UserService
 import java.io.File
 import java.security.Principal
 
 @Controller
 class IndexController {
 
+    @Autowired
+    private lateinit var userService: UserService
     @Autowired
     private lateinit var compilationServiceFacade: CompilationServiceFacade
     @Autowired
@@ -57,5 +62,13 @@ class IndexController {
         }
 
         return "index"
+    }
+
+    @RequestMapping("/tasks")
+    @PreAuthorize("hasRole('USER')")
+    @ResponseBody
+    fun getAllTasks(principal: Principal): List<TaskEntity> {
+        val user = userService.getUserByUsername(principal.name)
+        return userService.getUserTasks(user)
     }
 }
