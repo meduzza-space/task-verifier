@@ -7,13 +7,13 @@ import java.lang.RuntimeException
 import java.util.concurrent.atomic.AtomicInteger
 
 @Service
-class CCompilationService : CompilationService {
+class CPPCompilationService : CompilationService {
     val c = AtomicInteger()
-    override val language = CompilationService.Language.C
+    override val language = CompilationService.Language.CPP
 
     override fun compile(file: File): File {
         val id = c.getAndIncrement()
-        val p = ProcessBuilder("gcc", "-o", "test-$id", file.absolutePath)
+        val p = ProcessBuilder("g++", "-o", "test-$id", file.absolutePath)
                 .start()
 
         val waitFor = p.waitFor()

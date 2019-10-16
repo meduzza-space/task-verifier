@@ -33,7 +33,7 @@ class CompilationServiceFacade : ApplicationContextAware {
         context.getBeansOfType<CompilationService>()
                 .forEach { (n, c) ->
                     services[c.language] = c
-                    logger.info("Compilation service \"{}\" loaded successfully", n)
+                    logger.info("Compilation service \"{}\" (${c.getVersion()}) loaded successfully", n)
                 }
     }
 

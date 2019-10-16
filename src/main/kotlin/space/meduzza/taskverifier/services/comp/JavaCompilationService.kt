@@ -41,8 +41,8 @@ class JavaCompilationService : CompilationService {
         val p = ProcessBuilder("java", "-version")
         val proc = p.start()
         proc.waitFor()
-        val text = proc.errorStream.bufferedReader().readText()
-        return text.split('\n')[0].split(" ")[2].replace("\"", "")
+        val text = proc.errorStream.bufferedReader().lines().findFirst().get()
+        return text
     }
 
 }
