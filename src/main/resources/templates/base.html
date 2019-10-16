@@ -1,7 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<th:block layout:replace="fragments/header :: head"></th:block>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head layout:fragment="head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="ARTICSOFT">
+    <title>VERIFY</title>
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}">
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/style/style.css}">
+    <!-- END Custom CSS-->
+</head>
 <body>
 <th:block layout:replace="fragments/menu :: nav"></th:block>
 <th:block layout:replace="fragments/menu :: leftnav"></th:block>
